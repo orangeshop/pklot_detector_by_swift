@@ -13,15 +13,12 @@ class Log_view_TableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        
-        
     }
     
     var x_y_dot:UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        
+        label.textColor = .black
         return label
     }()
     

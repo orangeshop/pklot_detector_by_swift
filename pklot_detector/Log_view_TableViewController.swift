@@ -75,7 +75,7 @@ class Log_view_TableViewController: UIViewController {
 extension Log_view_TableViewController:UITableViewDataSource, UITableViewDelegate{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return x_dot_list.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -94,7 +94,7 @@ extension Log_view_TableViewController:UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Log_view_TableViewCell.id, for: indexPath) as? Log_view_TableViewCell else {return UITableViewCell()}
         
-//        cell.x_y_dot.text = String(x_dot[indexPath.section]) + ", " + String(y_dot[indexPath.section])
+        cell.x_y_dot.text = String(x_dot_list[indexPath.section]) + ", " + String(y_dot_list[indexPath.section])
         
         return cell
     }    
