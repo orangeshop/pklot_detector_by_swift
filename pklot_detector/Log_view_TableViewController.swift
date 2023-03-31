@@ -36,8 +36,8 @@ class Log_view_TableViewController: UIViewController {
 
         self.view.backgroundColor = .white
     
-        print(" x dot list\(x_dot_list.count)")
-        print(" y dot list\(y_dot_list.count)")
+        //print(" x dot list\(x_dot_list.count)")
+        //print(" y dot list\(y_dot_list.count)")
         
         
         
