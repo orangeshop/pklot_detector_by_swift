@@ -16,9 +16,20 @@ class custom_map_ViewController: UIViewController {
         return picker
     }()
     
+    let select_photo_label : UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "사진 선택"
+        label.textColor = .black
+        return label
+    }()
+    
     let select_photo : UIButton = {
         let btn = UIButton()
-        btn.backgroundColor = .orange
+        btn.backgroundColor = .white
+        btn.layer.borderColor = UIColor.black.cgColor
+        btn.layer.borderWidth = 1.5
+        btn.layer.cornerRadius = 10
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -39,6 +50,7 @@ class custom_map_ViewController: UIViewController {
         picker.delegate = self
         
         view.addSubview(select_photo)
+        select_photo.addSubview(select_photo_label)
         view.addSubview(image_view)
         select_photo.addTarget(self, action: #selector(present_photo), for: .touchUpInside)
         
@@ -47,12 +59,14 @@ class custom_map_ViewController: UIViewController {
     
     func auto_layout(){
         NSLayoutConstraint.activate([
-            select_photo.topAnchor.constraint(equalTo: super.view.topAnchor, constant: 100),
+            select_photo.topAnchor.constraint(equalTo: super.view.topAnchor, constant: 150),
             select_photo.leftAnchor.constraint(equalTo: super.view.leftAnchor, constant: 25),
             select_photo.rightAnchor.constraint(equalTo: super.view.rightAnchor, constant: -25),
             
+            select_photo_label.centerXAnchor.constraint(equalTo: select_photo.centerXAnchor),
+            select_photo_label.centerYAnchor.constraint(equalTo: select_photo.centerYAnchor),
             
-            image_view.topAnchor.constraint(equalTo: select_photo.bottomAnchor, constant: 100),
+            image_view.topAnchor.constraint(equalTo: select_photo.bottomAnchor, constant: 75),
             image_view.leftAnchor.constraint(equalTo: super.view.leftAnchor, constant: 10),
             image_view.rightAnchor.constraint(equalTo: super.view.rightAnchor, constant: -10),
             image_view.bottomAnchor.constraint(equalTo: super.view.bottomAnchor, constant: -150),
