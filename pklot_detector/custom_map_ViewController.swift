@@ -80,7 +80,7 @@ class custom_map_ViewController: UIViewController {
     @objc func next_btn(){
         
         
-        let vc = next_custom_mapViewController()
+        var vc = next_custom_mapViewController()
         
         if(choose_photo_check == false)
         {
@@ -89,6 +89,7 @@ class custom_map_ViewController: UIViewController {
             alert.addAction(cancle)
             present(alert, animated: true)
         }else{
+            vc.image_view = image_view.self
             navigationController?.pushViewController(vc, animated: true)
         }
     }
