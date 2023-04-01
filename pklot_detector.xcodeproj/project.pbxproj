@@ -22,6 +22,7 @@
 		645B4D2529D043E000AD560C /* custom_map_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645B4D2429D043E000AD560C /* custom_map_ViewController.swift */; };
 		645B4D2A29D047BE00AD560C /* main_view_controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645B4D1429D043CD00AD560C /* main_view_controller.swift */; };
 		649C398929D71DED0049317B /* data_set.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C398829D71DED0049317B /* data_set.swift */; };
+		649C398D29D72ACF0049317B /* next_custom_mapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C398C29D72ACF0049317B /* next_custom_mapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		645B4D2429D043E000AD560C /* custom_map_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = custom_map_ViewController.swift; sourceTree = "<group>"; };
 		645B4D2829D045C500AD560C /* Camera_view_Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera_view_Controller.swift; sourceTree = "<group>"; };
 		649C398829D71DED0049317B /* data_set.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = data_set.swift; sourceTree = "<group>"; };
+		649C398C29D72ACF0049317B /* next_custom_mapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = next_custom_mapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				645B4D1629D043CD00AD560C /* Log_view_TableViewController.swift */,
 				645B4D1929D043CE00AD560C /* Log_view_TableViewCell.swift */,
 				645B4D2429D043E000AD560C /* custom_map_ViewController.swift */,
+				649C398C29D72ACF0049317B /* next_custom_mapViewController.swift */,
 				645B4D1129D043CC00AD560C /* makeMapViewController.swift */,
 				645B4D1229D043CD00AD560C /* MyObjectDetector 13.mlmodel */,
 				645B4D0529D043BD00AD560C /* Assets.xcassets */,
@@ -172,6 +175,7 @@
 				645B4D2329D043CE00AD560C /* Log_view_TableViewCell.swift in Sources */,
 				645B4CFD29D043BD00AD560C /* AppDelegate.swift in Sources */,
 				645B4D2029D043CE00AD560C /* Log_view_TableViewController.swift in Sources */,
+				649C398D29D72ACF0049317B /* next_custom_mapViewController.swift in Sources */,
 				645B4D2A29D047BE00AD560C /* main_view_controller.swift in Sources */,
 				645B4D1B29D043CE00AD560C /* makeMapViewController.swift in Sources */,
 				645B4D1C29D043CE00AD560C /* MyObjectDetector 13.mlmodel in Sources */,

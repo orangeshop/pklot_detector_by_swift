@@ -21,8 +21,8 @@ class main_view_controller: UITabBarController, UITabBarControllerDelegate{
         let camera_view = CameraViewController1()
         
         
-        self.setViewControllers([camera_view,setting_view], animated: true)
-        //self.setViewControllers([setting_view], animated: true)
+        //self.setViewControllers([camera_view,setting_view], animated: true)
+        self.setViewControllers([setting_view], animated: true)
         
         self.tabBar.backgroundColor = UIColor.white
         self.tabBar.layer.cornerRadius = 20

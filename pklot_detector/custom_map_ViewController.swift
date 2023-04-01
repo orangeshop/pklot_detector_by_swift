@@ -37,8 +37,11 @@ class custom_map_ViewController: UIViewController {
     let image_view :UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 7
         return view
     }()
+    
+    var choose_photo_check : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,11 +52,12 @@ class custom_map_ViewController: UIViewController {
         
         picker.delegate = self
         
+       
+        
         view.addSubview(select_photo)
         select_photo.addSubview(select_photo_label)
         view.addSubview(image_view)
         select_photo.addTarget(self, action: #selector(present_photo), for: .touchUpInside)
-        
         auto_layout()
     }
     
@@ -75,6 +79,18 @@ class custom_map_ViewController: UIViewController {
     
     @objc func next_btn(){
         
+        
+        let vc = next_custom_mapViewController()
+        
+        if(choose_photo_check == false)
+        {
+            let alert = UIAlertController(title: "알림", message: "이미지를 선택해 주세요", preferredStyle: .alert)
+            let cancle = UIAlertAction(title: "확인", style: .cancel, handler: nil)
+            alert.addAction(cancle)
+            present(alert, animated: true)
+        }else{
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     @objc func present_photo(){
@@ -88,8 +104,10 @@ extension custom_map_ViewController: UIImagePickerControllerDelegate , UINavigat
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let img = info[UIImagePickerController.InfoKey.originalImage]{
                     image_view.image = img as? UIImage
+                    choose_photo_check = true
                 }
-                
+        
+        
         dismiss(animated: true, completion: nil)
     }
 }

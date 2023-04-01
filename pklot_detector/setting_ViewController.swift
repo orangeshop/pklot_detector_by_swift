@@ -68,12 +68,22 @@ class setting_ViewController: UIViewController {
         return temp_button
     }()
     
+    var exit_button_view : UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .blue
+        return view
+    }()
+    
     var exit_button : UIButton = {
         var temp_button = UIButton()
+        temp_button.translatesAutoresizingMaskIntoConstraints = false
         temp_button.layer.cornerRadius = 5
-        temp_button.backgroundColor = .orange
-        temp_button.layer.borderColor = UIColor.white.cgColor
+        temp_button.backgroundColor = .white
+        temp_button.layer.backgroundColor = UIColor.black.cgColor
         temp_button.layer.borderWidth = 1
+//        temp_button.layer.borderColor = UIColor.white.cgColor
+//        temp_button.layer.borderWidth = 1
         //temp_button.backgroundColor = .white
         return temp_button
     }()
@@ -111,7 +121,7 @@ class setting_ViewController: UIViewController {
         
         self.view.backgroundColor = .white
         
-        //print(" setting view x dot count \(setting_view_x_dot.count)")
+        
         view.addSubview(profile_view)
         
         profile_view.addSubview(stack_view)
@@ -123,14 +133,19 @@ class setting_ViewController: UIViewController {
         
         bottom_stack_view.addArrangedSubview(custom_map_button)
         bottom_stack_view.addArrangedSubview(view_log_button)
-        bottom_stack_view.addArrangedSubview(exit_button)
+        //bottom_stack_view.addArrangedSubview(exit_button)
+        
+        exit_button_view.addSubview(exit_button)
+        bottom_stack_view.addArrangedSubview(exit_button_view)
+        
+        
         
         custom_map_button.addTarget(self, action: #selector(custom_map_func), for: .touchUpInside)
         
         view_log_button.addTarget(self, action: #selector(log_view_func), for: .allTouchEvents)
         
         exit_button.addTarget(self, action: #selector(exit_func), for: .allTouchEvents)
-        
+
         auto_layout_setting()
         
     }
@@ -150,6 +165,15 @@ class setting_ViewController: UIViewController {
             profile_view.rightAnchor.constraint(equalTo: super.view.rightAnchor, constant: -20),
             profile_view.bottomAnchor.constraint(equalTo: super.view.bottomAnchor, constant: -500),
 
+        ])
+        
+        
+        NSLayoutConstraint.activate([
+            exit_button.topAnchor.constraint(equalTo: exit_button_view.topAnchor, constant: 10),
+            exit_button.leftAnchor.constraint(equalTo: exit_button_view.leftAnchor, constant: 10),
+            exit_button.rightAnchor.constraint(equalTo: exit_button_view.rightAnchor, constant: -10),
+            exit_button.bottomAnchor.constraint(equalTo: exit_button_view.bottomAnchor, constant: -10),
+            
         ])
     }
     
