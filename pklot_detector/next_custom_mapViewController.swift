@@ -43,7 +43,7 @@ class next_custom_mapViewController: UIViewController {
 //        test_view.center = super.view.center
 //        view.addSubview(test_view)
 //        addGesture()
-//
+////
         
        
         navigationItem.rightBarButtonItems = [
@@ -86,6 +86,16 @@ class next_custom_mapViewController: UIViewController {
         arr[count].addGestureRecognizer(Gesture2)
         arr[count].tag = count
         
+        NSLayoutConstraint.activate([
+            arr[count].topAnchor.constraint(equalTo: super.view.safeAreaLayoutGuide.topAnchor, constant: 100),
+            arr[count].leftAnchor.constraint(equalTo: super.view.leftAnchor, constant: 100),
+            arr[count].heightAnchor.constraint(equalToConstant: 100),
+            arr[count].widthAnchor.constraint(equalToConstant: 100),
+//            arr[count].rightAnchor.constraint(equalTo: super.view.rightAnchor, constant: -100),
+//            arr[count].bottomAnchor.constraint(equalTo: super.view.bottomAnchor, constant: -100),
+//
+        ])
+        
         print(arr[count].self)
         
         count += 1
@@ -96,41 +106,54 @@ class next_custom_mapViewController: UIViewController {
     
     func make_inner_reactagle() -> UIView{
         print("reactangle")
-//        let reactangle = UIView()
-//        reactangle.layer.borderWidth = 3
-//        reactangle.layer.borderColor = UIColor.white.cgColor
-//        reactangle.translatesAutoresizingMaskIntoConstraints = false
-//        reactangle.backgroundColor = .clear
-//        reactangle.tag = 1
-//        reactangle.frame = CGRect(x: 100 + (count * 10), y: 100, width: 100, height: 50)
-//        return reactangle
+
         
         
         let view_round = UIView()
         view_round.translatesAutoresizingMaskIntoConstraints = false
-        view_round.frame = CGRect(x: 200, y: 200, width: 150, height: 100)
-        view_round.backgroundColor = .clear
+       //view_round.frame = CGRect(x: 200, y: 200, width: 150, height: 100)
+        view_round.backgroundColor = .blue
         view_round.layer.borderColor = UIColor.clear.cgColor
         view_round.layer.borderWidth = 1
-        
+        view_round.isUserInteractionEnabled = true
+        view_round.isMultipleTouchEnabled = true
+        view_round.tag = 999
         
         let inner_view = UIView()
         inner_view.translatesAutoresizingMaskIntoConstraints = false
-        inner_view.backgroundColor = .clear
+        inner_view.backgroundColor = .systemGray
         inner_view.layer.borderColor = UIColor.white.cgColor
         inner_view.layer.borderWidth = 3
-        inner_view.frame = CGRect(x: 25, y: 25, width: 100, height: 50)
+        inner_view.isMultipleTouchEnabled = true
+        inner_view.isUserInteractionEnabled = true
+        inner_view.tag = 1000
+        //inner_view.frame = CGRect(x: 25, y: 25, width: 100, height: 50)
         
-        let close_btn = UIView()
-        close_btn.translatesAutoresizingMaskIntoConstraints = false
-        close_btn.layer.cornerRadius = 15
-        close_btn.backgroundColor = .none
-        close_btn.frame = CGRect(x: view_round.bounds.maxX-15, y: view_round.bounds.minY-15, width: 30, height: 30)
-        close_btn.tag = 1234
+//        let close_btn = UIView()
+//        close_btn.translatesAutoresizingMaskIntoConstraints = false
+//        close_btn.layer.cornerRadius = 15
+//        close_btn.backgroundColor = .none
+//        close_btn.frame = CGRect(x: view_round.bounds.maxX-15, y: view_round.bounds.minY-15, width: 30, height: 30)
+//        close_btn.tag = 1234
         
         view_round.addSubview(inner_view)
-        view_round.addSubview(close_btn)
+        //view_round.addSubview(close_btn)
+        
 
+        NSLayoutConstraint.activate([
+//            view_round.centerXAnchor.constraint(equalTo: image_view.centerXAnchor),
+//            view_round.centerYAnchor.constraint(equalTo: image_view.centerYAnchor),
+//            view_round.heightAnchor.constraint(equalToConstant: 100),
+//            view_round.widthAnchor.constraint(equalToConstant: 100),
+            
+            inner_view.centerXAnchor.constraint(equalTo: view_round.centerXAnchor),
+            inner_view.centerYAnchor.constraint(equalTo: view_round.centerYAnchor),
+            inner_view.heightAnchor.constraint(equalToConstant: 50),
+            inner_view.widthAnchor.constraint(equalToConstant: 50),
+            
+        ])
+        
+        
         return view_round
         
     }
@@ -141,6 +164,8 @@ class next_custom_mapViewController: UIViewController {
         
     
         //sender.addTarget(self, action: #selector(test_func))
+        
+        print(sender.self)
         
         if(sender.state == .changed){
             print("클릭")
@@ -155,12 +180,11 @@ class next_custom_mapViewController: UIViewController {
             
             if(tap_check == false){
                 
-//                sender.view?.backgroundColor = .clear
-//                sender.view?.layer.borderWidth = 1
                 close_btn?.backgroundColor = .systemGray
                 
                 sender.view?.layer.borderColor = UIColor.systemYellow.cgColor
                
+                
                 
                
                 tap_check = true
@@ -193,19 +217,35 @@ class next_custom_mapViewController: UIViewController {
     
     @objc func didPinch(_ gesture: UIPinchGestureRecognizer){
         print("didPinch")
-        guard gesture.view != nil else { return }
+        //guard gesture.view != nil else { return }
 
         
-        if gesture.state == .changed{
+        if gesture.state == .began{
+            gesture.view?.backgroundColor = .systemBrown
+        }
+        
+        let view = gesture.view?.viewWithTag(1000)
+        let view2 = gesture.view?.viewWithTag(999)
+        
+        if gesture.state == .changed || gesture.state == .began{
             let scale = gesture.scale
             print(scale)
-            test_view.frame = CGRect(
-                x: 0,
-                y: 0,
-                width: size * scale,
-                height : size * scale
-            )
-            test_view.center = view.center
+            view2?.transform = CGAffineTransform(scaleX: scale, y: scale)
+            view?.transform = CGAffineTransform(scaleX: scale, y: scale)
+            
+//            gesture.view?.frame = CGRect(
+//                x: 0,
+//                y: 0,
+//                width: size * scale,
+//                height : size * scale
+//            )
+//            gesture.view?.center = view.center
+            
+            
+        }
+        
+        if gesture.state == .ended {
+            gesture.view?.backgroundColor = .systemBrown
         }
     }
     
@@ -216,10 +256,8 @@ class next_custom_mapViewController: UIViewController {
         
        
         if(sender.state == .began){
-            //sender.view?.backgroundColor = .systemPink
+            sender.view?.backgroundColor = .systemPink
         }
-        
-        
         
         if sender.state == .began || sender.state == .changed{
             let translation = sender.translation(in: sender.view)
@@ -231,10 +269,9 @@ class next_custom_mapViewController: UIViewController {
             
         }
         
-        let test_tag = self.view.viewWithTag(1)
         
         if(sender.state == .ended){
-            //sender.view?.backgroundColor = .none
+            sender.view?.backgroundColor = .clear
             
         }
         
