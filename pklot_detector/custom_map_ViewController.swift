@@ -80,7 +80,7 @@ class custom_map_ViewController: UIViewController {
     @objc func next_btn(){
         
         
-        var vc = next_custom_mapViewController()
+        let vc = next_custom_mapViewController()
         
         if(choose_photo_check == false)
         {
