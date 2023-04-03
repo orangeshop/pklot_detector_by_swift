@@ -89,8 +89,8 @@ class next_custom_mapViewController: UIViewController {
         NSLayoutConstraint.activate([
             arr[count].topAnchor.constraint(equalTo: super.view.safeAreaLayoutGuide.topAnchor, constant: 100),
             arr[count].leftAnchor.constraint(equalTo: super.view.leftAnchor, constant: 100),
-            arr[count].heightAnchor.constraint(equalToConstant: 100),
-            arr[count].widthAnchor.constraint(equalToConstant: 100),
+            arr[count].heightAnchor.constraint(equalToConstant: 150),
+            arr[count].widthAnchor.constraint(equalToConstant: 150),
 //            arr[count].rightAnchor.constraint(equalTo: super.view.rightAnchor, constant: -100),
 //            arr[count].bottomAnchor.constraint(equalTo: super.view.bottomAnchor, constant: -100),
 //
@@ -129,15 +129,15 @@ class next_custom_mapViewController: UIViewController {
         inner_view.tag = 1000
         //inner_view.frame = CGRect(x: 25, y: 25, width: 100, height: 50)
         
-//        let close_btn = UIView()
-//        close_btn.translatesAutoresizingMaskIntoConstraints = false
-//        close_btn.layer.cornerRadius = 15
-//        close_btn.backgroundColor = .none
-//        close_btn.frame = CGRect(x: view_round.bounds.maxX-15, y: view_round.bounds.minY-15, width: 30, height: 30)
-//        close_btn.tag = 1234
+        let close_btn = UIView()
+        close_btn.translatesAutoresizingMaskIntoConstraints = false
+        close_btn.layer.cornerRadius = 15
+        close_btn.backgroundColor = .blue
+        close_btn.frame = CGRect(x: view_round.bounds.minX, y: view_round.bounds.maxY, width: 0, height: 0)
+       
         
         view_round.addSubview(inner_view)
-        //view_round.addSubview(close_btn)
+        view_round.addSubview(close_btn)
         
 
         NSLayoutConstraint.activate([
@@ -146,10 +146,17 @@ class next_custom_mapViewController: UIViewController {
 //            view_round.heightAnchor.constraint(equalToConstant: 100),
 //            view_round.widthAnchor.constraint(equalToConstant: 100),
             
+//            close_btn.topAnchor.constraint(equalTo: view_round.topAnchor),
+//            close_btn.trailingAnchor.constraint(equalTo: view_round.trailingAnchor),
+            close_btn.widthAnchor.constraint(equalToConstant: 30),
+            close_btn.heightAnchor.constraint(equalToConstant: 30),
+            
+            
+            
             inner_view.centerXAnchor.constraint(equalTo: view_round.centerXAnchor),
             inner_view.centerYAnchor.constraint(equalTo: view_round.centerYAnchor),
             inner_view.heightAnchor.constraint(equalToConstant: 50),
-            inner_view.widthAnchor.constraint(equalToConstant: 50),
+            inner_view.widthAnchor.constraint(equalToConstant: 100),
             
         ])
         
@@ -230,8 +237,9 @@ class next_custom_mapViewController: UIViewController {
         if gesture.state == .changed || gesture.state == .began{
             let scale = gesture.scale
             print(scale)
-            view2?.transform = CGAffineTransform(scaleX: scale, y: scale)
-            view?.transform = CGAffineTransform(scaleX: scale, y: scale)
+            //view2?.transform = CGAffineTransform(scaleX: scale, y: scale)
+            gesture.view?.transform = CGAffineTransform(scaleX: scale, y: scale)
+            //view?.transform = CGAffineTransform(scaleX: scale, y: scale)
             
 //            gesture.view?.frame = CGRect(
 //                x: 0,
