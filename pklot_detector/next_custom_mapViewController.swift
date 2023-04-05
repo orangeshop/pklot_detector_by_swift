@@ -276,6 +276,7 @@ class next_custom_mapViewController: UIViewController {
             print("")
             print("")
             print("")
+            
             print("")
             
             //print("sener.view?.center.x, sener.view?.center.y : \(sender.view?.center.x) , \(sender.view?.center.y)")
