@@ -81,7 +81,7 @@ class next_custom_mapViewController: UIViewController {
         arr[count].addGestureRecognizer(Gesture3)
         arr[count].addGestureRecognizer(Gesture)
         arr[count].addGestureRecognizer(Gesture2)
-        arr[count].addGestureRecognizer(Gesture4)
+        //arr[count].addGestureRecognizer(Gesture4)
         arr[count].tag = count
         
        
@@ -162,7 +162,9 @@ class next_custom_mapViewController: UIViewController {
             inner_view.widthAnchor.constraint(equalToConstant: 100),
             
         ])
-        
+        let Gesture4 = UIRotationGestureRecognizer(target: self,
+                                                   action: #selector(Rotation(_ :)))
+        inner_view.addGestureRecognizer(Gesture4)
         
         return view_round
         
@@ -243,54 +245,34 @@ class next_custom_mapViewController: UIViewController {
         }
     }
     
+    var drection_check : Int = 0
     
     @objc func panPerformed(_ sender : UIPanGestureRecognizer){
         print("panPerformed")
         //print(sender.self)
+        guard let view = sender.view else { return }
        
-        let position = sender.location(in: sender.view)
-        let velocity = sender.velocity(in: sender.view)
-        
         
         if(sender.state == .began){
-            //sender.view?.backgroundColor = .systemPink
-            //lastPosition = sender.view?.center
-            
-            
-            if(last_rotation_a != 0){
-                calculation_center()
-            }
+
         }
         
         if sender.state == .began || sender.state == .changed{
             
+            
             let translation = sender.translation(in: sender.view)
-            let change_x = (sender.view?.center.x)! + translation.x
-            let change_y = (sender.view?.center.y)! + translation.y
-
+            print("defualt : \(translation.x) , \(translation.y)")
+            let change_x = (sender.view?.center.x)! + (translation.x)
+            let change_y = (sender.view?.center.y)! + (translation.y)
             
-            print(velocity)
-            print("")
-            print("")
-            print("")
-            print("")
-            print("")
-            print("")
             
-            print("")
             
-            //print("sener.view?.center.x, sener.view?.center.y : \(sender.view?.center.x) , \(sender.view?.center.y)")
+            print("change_x, change_y : \(change_x) , \(change_y)")
             
             sender.view?.center = CGPoint(x: change_x, y: change_y)
             sender.setTranslation(CGPoint.zero, in: sender.view)
-//
-//            if let lastPosition = lastPosition {
-//                let translation = (x: position.x - lastPosition.x, y: position.y - lastPosition.y)
-//                sender.view?.center.x += translation.x
-//                sender.view?.center.y += translation.y
-//            }
             
-           
+
         }
         
         
@@ -300,23 +282,16 @@ class next_custom_mapViewController: UIViewController {
         }
     }
     
-    var last_rotation_a: CGFloat? = 0;
-    var last_rotation_b: CGFloat? = 0;
-    var last_rotation_c: CGFloat? = 0;
-    var last_rotation_d: CGFloat? = 0;
+    
+    var test_x : CGFloat?
+    var test_y : CGFloat?
+    
     
     @objc func Rotation(_ sender : UIRotationGestureRecognizer){
         
         print("Rotation")
         
         if sender.state == .began{
-            print("start rotation : \(sender.view?.transform)")
-            print("")
-            print("")
-            print("")
-            print("")
-            print("")
-            print("")
             
         }
         
@@ -325,19 +300,32 @@ class next_custom_mapViewController: UIViewController {
             rotationView.transform = CGAffineTransformRotate(rotationView.transform, sender.rotation)
             
             sender.rotation = 0.0
-            print("\(rotationView.transform)")
-            print("\(sender.view?.center)")
-            //print("sender.rotation : \(sender.rotation)")
         }
         
         
         if(sender.state == .ended){
-            print(sender.self)
-            
-            last_rotation_a = sender.view?.transform.a
-            last_rotation_b = sender.view?.transform.b
-            last_rotation_c = sender.view?.transform.c
-            last_rotation_d = sender.view?.transform.d
+//            if(Double(sender.view?.transform.a ?? 0) > 0 && Double(sender.view?.transform.b ?? 0) < 0 && Double(sender.view?.transform.c ?? 0) > 0 && Double(sender.view?.transform.d ?? 0) > 0){
+//                print("0에서 90도 사이")
+//                test_x = sender.view?.transform.b
+//                drection_check = 0
+//
+//            }
+//            else if(Double(sender.view?.transform.a ?? 0) < 0 && Double(sender.view?.transform.b ?? 0) < 0 && Double(sender.view?.transform.c ?? 0) > 0 && Double(sender.view?.transform.d ?? 0) < 0){
+//                print("90에서 180도 사이")
+//                drection_check = 0
+//
+//            }
+//            else if(Double(sender.view?.transform.a ?? 0) < 0 && Double(sender.view?.transform.b ?? 0) > 0 && Double(sender.view?.transform.c ?? 0) < 0 && Double(sender.view?.transform.d ?? 0) < 0){
+//                print("180에서 270도 사이")
+//                drection_check = 0
+//            }
+//            else if(Double(sender.view?.transform.a ?? 0) > 0 && Double(sender.view?.transform.b ?? 0) > 0 && Double(sender.view?.transform.c ?? 0) < 0 && Double(sender.view?.transform.d ?? 0) > 0){
+//                print("270에서 360도 사이")
+//                drection_check = 0
+//            }
+//            else{
+//
+//            }
         }
     }
     
@@ -365,11 +353,7 @@ class next_custom_mapViewController: UIViewController {
         
     }
     
-//    @objc func test_func(){
-//        print("test click !")
-//
-//
-//    }
+
 
     
     func addGesture(){
@@ -404,3 +388,4 @@ class next_custom_mapViewController: UIViewController {
     */
 
 }
+

@@ -22,8 +22,8 @@ class main_view_controller: UITabBarController, UITabBarControllerDelegate{
         let test_setting_view = setting_view_testViewController()
         //let test_setting_view = UINavigationController(rootViewController: setting_view_testViewController())
     
-        //self.setViewControllers([camera_view,setting_view], animated: true)
-        self.setViewControllers([setting_view,test_setting_view], animated: true)
+        //self.setViewControllers([camera_view,test_setting_view], animated: true)
+        self.setViewControllers([test_setting_view], animated: true)
         
         let left_btn = UIBarButtonItem(image: UIImage(systemName: "bell")?.withTintColor(.white, renderingMode: .alwaysOriginal), style: .plain, target: self, action: nil)
         
