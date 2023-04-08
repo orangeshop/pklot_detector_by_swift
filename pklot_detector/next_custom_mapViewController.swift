@@ -17,7 +17,7 @@ class next_custom_mapViewController: UIViewController {
     }()
     
    
-    var arr = Array<UIView>()
+    
     var count : Int = 0
     var lastRotation: CGFloat = 0
     var lastPosition: CGPoint?
@@ -63,6 +63,9 @@ class next_custom_mapViewController: UIViewController {
     @objc func make_layer(){
        
         arr.append(make_inner_reactagle())
+        pk_lot_check_result.append(false)
+        pk_lot_check_ratio.append(100)
+        
         
         view.addSubview(arr[count])
         let Gesture = UIPinchGestureRecognizer(target: self,
@@ -73,8 +76,7 @@ class next_custom_mapViewController: UIViewController {
         let Gesture3 = UITapGestureRecognizer(target: self,
                                            action: #selector(tapGesture(_:)))
         
-        let Gesture4 = UIRotationGestureRecognizer(target: self,
-                                                   action: #selector(Rotation(_ :)))
+        //let Gesture4 = UIRotationGestureRecognizer(target: self,action: #selector(Rotation(_ :)))
         
         arr[count].isUserInteractionEnabled = true
         arr[count].isMultipleTouchEnabled = true
@@ -241,7 +243,6 @@ class next_custom_mapViewController: UIViewController {
         }
         
         if gesture.state == .ended {
-            gesture.view?.backgroundColor = .systemBrown
         }
     }
     
@@ -302,7 +303,6 @@ class next_custom_mapViewController: UIViewController {
             sender.rotation = 0.0
         }
         
-        
         if(sender.state == .ended){
 //            if(Double(sender.view?.transform.a ?? 0) > 0 && Double(sender.view?.transform.b ?? 0) < 0 && Double(sender.view?.transform.c ?? 0) > 0 && Double(sender.view?.transform.d ?? 0) > 0){
 //                print("0에서 90도 사이")
@@ -329,18 +329,7 @@ class next_custom_mapViewController: UIViewController {
         }
     }
     
-    
-    func target_reactragle_view() -> UIView{
-        let view1 = UIView()
-        view1.backgroundColor = .clear
-        view1.layer.borderColor = UIColor.systemYellow.cgColor
-        view1.layer.borderWidth = 1
-        view1.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.center = view1.center
-        
-        return view1
-    }
+
     
     
     
@@ -350,7 +339,16 @@ class next_custom_mapViewController: UIViewController {
     }
     
     @objc func save_func(_ sender : Any){
+        for i in 0 ..< arr.count{
+            print(arr[i])
+        }
         
+        
+        
+        
+        for i in 0 ..< 2{
+            navigationController?.popViewController(animated: true)
+        }
     }
     
 
@@ -374,9 +372,6 @@ class next_custom_mapViewController: UIViewController {
         print(test_view.self)
     }
     
-    func calculation_center(){
-        
-    }
     /*
     // MARK: - Navigation
 

@@ -119,7 +119,7 @@ class setting_ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .black
         
         
         view.addSubview(profile_view)

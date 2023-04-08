@@ -32,9 +32,23 @@ class CameraViewController1: UIViewController, AVCaptureVideoDataOutputSampleBuf
     
     //var vc = CameraViewController1()
     
+    let reload_btn : UIButton = {
+        let btn = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.backgroundColor = .white
+        return btn
+    }()
+    
+    let btn_image : UIImageView = {
+        let img = UIImageView()
+        img.translatesAutoresizingMaskIntoConstraints = false
+        img.image = UIImage(systemName: "arrow.counterclockwise")
+        return img
+    }()
+    
     override func viewDidLoad() {
         checkPermission()
-        view.backgroundColor = .white
+        view.backgroundColor = .black
 
         sessionQueue.async { [unowned self] in
             guard permissionGranted else {return}
@@ -43,39 +57,29 @@ class CameraViewController1: UIViewController, AVCaptureVideoDataOutputSampleBuf
             self.setupDetector()
             self.captureSession.startRunning()
         }
-        
-        let make_map_button = UIButton()
-        view.addSubview(make_map_button)
-        make_map_button.backgroundColor = .orange
-        make_map_button.addTarget(self, action: #selector(popup_button), for: .allTouchEvents)
-        make_map_button.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            
-            make_map_button.topAnchor.constraint(equalTo: super.view.topAnchor, constant: 650),
-            make_map_button.leftAnchor.constraint(equalTo: super.view.leftAnchor, constant: 20),
-            make_map_button.rightAnchor.constraint(equalTo: super.view.rightAnchor, constant: -20),
-            make_map_button.bottomAnchor.constraint(equalTo: super.view.bottomAnchor, constant: -20)
-        ])
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
+    func add_layer(){
+        //detectionLayer.sublayers = nil
+        //detectionLayer?.addSublayer(make_layer(cnt))
+        for i in 0 ..< 10{
+            //print(arr[i].self)
+            //previewLayer.addSublayer(make_layer(cnt:i))
+            detectionLayer.addSublayer(make_layer(cnt: i, color: UIColor.white))
+        }
     }
     
-    @objc func popup_button(){
+    func make_layer(cnt : Int, color : UIColor) -> CALayer{
+        //print("make layer in")
+        let layer1 = CALayer()
+        //layer1.frame = CGRect(x: arr[cnt].frame.minX +((arr[cnt].frame.width-150)/2), y: arr[cnt].frame.minY, width: arr[cnt].frame.width-150, height: arr[cnt].frame.height-100)
+        layer1.frame = CGRect(x: arr[cnt].frame.minX + ((arr[cnt].frame.height-50)/2), y: arr[cnt].frame.minY + ((arr[cnt].frame.width-100)/2), width: 100, height: 50)
+        layer1.borderColor = UIColor.white.cgColor
+        layer1.borderWidth = 3
         
-        let vc = makeMapViewController()
-        
-        //vc.dataFromFirst = String(data_x) + String(", ") + String(data_y)
-        
-        vc.dataForm_x_list = data_x_list
-        vc.dataForm_y_list = data_y_list
-        //vc.dataFromFirst =
-        //vc.dataFromFirst = "\(tran)"
-        present(vc, animated: true)
-        print("tap pop up")
+        //layer.frame = CGRect(x: 100, y: 100, width: 100, height: 100)
+        layer1.backgroundColor = color.cgColor
+        return layer1
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -130,7 +134,7 @@ class CameraViewController1: UIViewController, AVCaptureVideoDataOutputSampleBuf
         screenRect = UIScreen.main.bounds
         
         previewLayer = AVCaptureVideoPreviewLayer(session:  captureSession)
-        previewLayer.frame = CGRect(x: 0, y: 0, width: screenRect.size.width, height: screenRect.size.height/1.5)
+        previewLayer.frame = CGRect(x: 0, y: 0, width: screenRect.size.width, height: screenRect.size.height)
         previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         
         previewLayer.connection?.videoOrientation = .portrait
@@ -144,6 +148,9 @@ class CameraViewController1: UIViewController, AVCaptureVideoDataOutputSampleBuf
         }
         
     }
+    
+    
+
 }
 
 struct HostedViewController: UIViewControllerRepresentable{

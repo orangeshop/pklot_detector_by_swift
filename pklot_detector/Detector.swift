@@ -26,11 +26,8 @@ extension CameraViewController1{
     func detectionDidComplete(request: VNRequest, error: Error?){
         DispatchQueue.main.async(execute: {
             if let results = request.results{
-                
-                
                 self.extractDetection(results)
             }
-            
         })
     }
     
@@ -38,14 +35,15 @@ extension CameraViewController1{
     
     func extractDetection(_ results: [VNObservation]){
         detectionLayer.sublayers = nil
+        // 설정한 레이어를 체크하기 위한 임시 점들을 모아둔 배열
+        var temp_x_dot_list = Array<Double>()
+        var temp_y_dot_list = Array<Double>()
+        var temp_pk_true_false_list = Array<Bool>()
         
         
         
         for observation in results where observation is VNRecognizedObjectObservation{
             guard let objectObservation = observation as? VNRecognizedObjectObservation else {return}
-            
-            
-            
             
             //let objectBounds = VNImageRectForNormalizedRect(objectObservation.boundingBox, Int(screenRect.size.width), Int(screenRect.size.height))
             // -> 기존에서 수정
@@ -56,26 +54,27 @@ extension CameraViewController1{
             // -> 기존에서 수정
             let transformBounds = CGRect(x: objectBounds.minY, y: screenRect.size.height - objectBounds.minX, width: objectBounds.maxX - objectBounds.minX, height: objectBounds.maxY - objectBounds.minY)
             
-            
-//            data_x = Double(objectBounds.minY)
-//            data_y = Double(screenRect.size.height - objectBounds.minX)
-//
-//            data_x_list.append(Double(objectBounds.minY))
-            //data_y_list.append(Double(screenRect.size.height - objectBounds.minX))
+            if(detector_view_inner == true){
+                for i in 0 ..< arr.count{
+                    
+                    if(pk_lot_check_result[i] == true){
+                        detectionLayer.addSublayer(make_layer(cnt: i, color: UIColor.green))
+                    }else{
+                        detectionLayer.addSublayer(make_layer(cnt: i, color: UIColor.red))
+                    }
+                }
+            }
             
             x_dot_list.append(Double(objectBounds.minY))
             y_dot_list.append(Double(screenRect.size.height - objectBounds.minX))
             
             
-            
-           
+            temp_x_dot_list.append(Double(objectBounds.minY))
+            temp_y_dot_list.append(Double(screenRect.size.height - objectBounds.minX))
             
             let boxLayer = self.drawBoundingBox(transformBounds)
-            
             let textLayer = self.textBoundingBox(transformBounds, string: objectObservation.labels[0].identifier)
-                 
-           // print("transformBounds  x : \(screenRect.size.height - objectBounds.minX) , y : \(screenRect.size.height - objectBounds.maxY) ,widht : \(objectBounds.maxX - objectBounds.minX) ,height: \(transformBounds.height)  ")
-            
+    
             let x_dot = CALayer()
             x_dot.frame = CGRect(x: objectBounds.minX, y: screenRect.size.height - objectBounds.maxY, width: 1, height: 1)
             x_dot.backgroundColor = UIColor.blue.cgColor
@@ -84,20 +83,52 @@ extension CameraViewController1{
             
             if(objectObservation.labels[0].identifier == "space-empty"){
                 //print("빈 공간은 layer를 붉은색으로")
-                //boxLayer.layer.backgroundColor = .init(red: 255, green: 0, blue: 0, alpha: 0)
                 boxLayer.backgroundColor = UIColor.red.cgColor
+                temp_pk_true_false_list.append(false)
                 detectionLayer.addSublayer(boxLayer)
-                
-                detectionLayer.addSublayer(textLayer)
-                //previewLayer.addSublayer(x_dot)
             }else{
                 //print("채워진 공간은 layer를 초록색으로")
                 boxLayer.backgroundColor = UIColor.green.cgColor
-                
                 detectionLayer.addSublayer(boxLayer)
-                
+                temp_pk_true_false_list.append(true)
             }
         }
+        
+        for i in 0 ..< temp_x_dot_list.count{
+            
+            
+            for k in 0 ..< arr.count{
+                
+                if(arr[k].frame.minX <= temp_x_dot_list[i] && temp_x_dot_list[i] <= (arr[k].frame.maxX) && arr[k].frame.minY <= temp_y_dot_list[i] && temp_y_dot_list[i] <= arr[k].frame.maxY){
+                    
+                    pk_lot_check_result[k] = calculate_ratio_func(cnt: k, check: temp_pk_true_false_list[i])
+                }
+            }
+        }
+        
+        //초 기화
+        //temp_x_dot_list.
+        temp_x_dot_list.removeAll()
+        temp_y_dot_list.removeAll()
+        temp_pk_true_false_list.removeAll()
+    }
+    
+    func calculate_ratio_func(cnt : Int, check : Bool) -> Bool{
+        var ans = false
+        pk_lot_check_ratio[cnt] = 100
+        if(check == false){
+            pk_lot_check_ratio[cnt] /= 2
+        }else{
+            pk_lot_check_ratio[cnt] *= 2
+        }
+        
+        if(pk_lot_check_ratio[cnt] > 60){
+            ans = true
+        }else if(pk_lot_check_ratio[cnt] < 40){
+            ans = false
+        }
+        
+        return ans
     }
     
     func textBoundingBox(_ bounds:CGRect, string text:String) -> CATextLayer{
