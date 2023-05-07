@@ -4,7 +4,7 @@
 //
 //  Created by 최영호 on 2023/03/31.
 //
-
+import Foundation
 import UIKit
 
 class next_custom_mapViewController: UIViewController {
@@ -339,16 +339,30 @@ class next_custom_mapViewController: UIViewController {
     }
     
     @objc func save_func(_ sender : Any){
+        
+        var vc = FirebaseReadWrite()
+        
         for i in 0 ..< arr.count{
             print(arr[i])
+            print(arr[i].self.frame)
+            
+            var str = arr[i].self.frame
+            let restr = "\(str)"
+            vc.writevalue(frame_resourese : restr)
+            
+            
         }
         
         
         
+       
         
         for i in 0 ..< 2{
             navigationController?.popViewController(animated: true)
         }
+        
+        
+        
     }
     
 

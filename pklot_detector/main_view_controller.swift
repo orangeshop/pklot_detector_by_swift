@@ -11,8 +11,6 @@ import UIKit
 
 class main_view_controller: UITabBarController, UITabBarControllerDelegate{
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,14 +33,6 @@ class main_view_controller: UITabBarController, UITabBarControllerDelegate{
             UIBarButtonItem(image: UIImage(systemName: "gearshape")?.withTintColor(.white, renderingMode: .alwaysOriginal), style: .plain, target: self, action: nil),
             UIBarButtonItem(image: UIImage(systemName: "arrow.counterclockwise")?.withTintColor(.white, renderingMode: .alwaysOriginal), style: .plain, target: self, action:#selector(relaoad))
         ]
-        
-        
-        
-        
-        
-        
-        
-        
         
         self.tabBar.backgroundColor = UIColor.white
         self.tabBar.layer.cornerRadius = 20

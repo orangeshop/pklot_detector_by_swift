@@ -16,7 +16,7 @@ class CameraViewController1: UIViewController, AVCaptureVideoDataOutputSampleBuf
     
     private var permissionGranted = false
     private let captureSession = AVCaptureSession()
-    private let sessionQueue = DispatchQueue(label: "SessionQueue")
+    private let sessionQueue = DispatchQueue(label:"SessionQueue")
     
     var previewLayer = AVCaptureVideoPreviewLayer()
     var screenRect : CGRect! = nil
@@ -26,11 +26,8 @@ class CameraViewController1: UIViewController, AVCaptureVideoDataOutputSampleBuf
     
     var detectionLayer: CALayer! = nil
    
-    
     var data_x_list = [Double]()
     var data_y_list = [Double]()
-    
-    //var vc = CameraViewController1()
     
     let reload_btn : UIButton = {
         let btn = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
@@ -60,24 +57,18 @@ class CameraViewController1: UIViewController, AVCaptureVideoDataOutputSampleBuf
     }
     
     func add_layer(){
-        //detectionLayer.sublayers = nil
-        //detectionLayer?.addSublayer(make_layer(cnt))
         for i in 0 ..< 10{
-            //print(arr[i].self)
-            //previewLayer.addSublayer(make_layer(cnt:i))
             detectionLayer.addSublayer(make_layer(cnt: i, color: UIColor.white))
         }
     }
-    
+
     func make_layer(cnt : Int, color : UIColor) -> CALayer{
-        //print("make layer in")
         let layer1 = CALayer()
-        //layer1.frame = CGRect(x: arr[cnt].frame.minX +((arr[cnt].frame.width-150)/2), y: arr[cnt].frame.minY, width: arr[cnt].frame.width-150, height: arr[cnt].frame.height-100)
+
         layer1.frame = CGRect(x: arr[cnt].frame.minX + ((arr[cnt].frame.height-50)/2), y: arr[cnt].frame.minY + ((arr[cnt].frame.width-100)/2), width: 100, height: 50)
         layer1.borderColor = UIColor.white.cgColor
         layer1.borderWidth = 3
-        
-        //layer.frame = CGRect(x: 100, y: 100, width: 100, height: 100)
+
         layer1.backgroundColor = color.cgColor
         return layer1
     }

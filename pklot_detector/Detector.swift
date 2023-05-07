@@ -73,19 +73,22 @@ extension CameraViewController1{
             temp_y_dot_list.append(Double(screenRect.size.height - objectBounds.minX))
             
             let boxLayer = self.drawBoundingBox(transformBounds)
-            let textLayer = self.textBoundingBox(transformBounds, string: objectObservation.labels[0].identifier)
+            //let textLayer = self.textBoundingBox(transformBounds, string: objectObservation.labels[0].identifier)
     
-            let x_dot = CALayer()
-            x_dot.frame = CGRect(x: objectBounds.minX, y: screenRect.size.height - objectBounds.maxY, width: 1, height: 1)
-            x_dot.backgroundColor = UIColor.blue.cgColor
-            
+//            let x_dot = CALayer()
+//            x_dot.frame = CGRect(x: objectBounds.minX, y: screenRect.size.height - objectBounds.maxY, width: 1, height: 1)
+//            x_dot.backgroundColor = UIColor.blue.cgColor
+//
             // 정방향시 좌표 재 지정
             
             if(objectObservation.labels[0].identifier == "space-empty"){
                 //print("빈 공간은 layer를 붉은색으로")
                 boxLayer.backgroundColor = UIColor.red.cgColor
+            
                 temp_pk_true_false_list.append(false)
                 detectionLayer.addSublayer(boxLayer)
+                
+                
             }else{
                 //print("채워진 공간은 layer를 초록색으로")
                 boxLayer.backgroundColor = UIColor.green.cgColor
@@ -95,36 +98,50 @@ extension CameraViewController1{
         }
         
         for i in 0 ..< temp_x_dot_list.count{
-            
-            
             for k in 0 ..< arr.count{
                 
                 if(arr[k].frame.minX <= temp_x_dot_list[i] && temp_x_dot_list[i] <= (arr[k].frame.maxX) && arr[k].frame.minY <= temp_y_dot_list[i] && temp_y_dot_list[i] <= arr[k].frame.maxY){
-                    
+                    print("cnt : \(k), check : \(temp_pk_true_false_list[i])")
                     pk_lot_check_result[k] = calculate_ratio_func(cnt: k, check: temp_pk_true_false_list[i])
                 }
             }
         }
         
-        //초 기화
-        //temp_x_dot_list.
+        for i in 0 ..< pk_lot_check_result.count{
+            print(pk_lot_check_result[i])
+        }
+        
+        //초기화
+        
         temp_x_dot_list.removeAll()
         temp_y_dot_list.removeAll()
         temp_pk_true_false_list.removeAll()
     }
-    
+    /***
+     cnt  : 현재 배열 index
+     checkt : 해당 true false
+     */
     func calculate_ratio_func(cnt : Int, check : Bool) -> Bool{
         var ans = false
-        pk_lot_check_ratio[cnt] = 100
+        if(pk_lot_check_ratio[cnt] == 0){
+            pk_lot_check_ratio[cnt] = 40
+        }
         if(check == false){
-            pk_lot_check_ratio[cnt] /= 2
+            if(pk_lot_check_ratio[cnt] > 0)
+            {
+                pk_lot_check_ratio[cnt] -= 0.1
+            }
         }else{
-            pk_lot_check_ratio[cnt] *= 2
+            if(pk_lot_check_ratio[cnt] < 100)
+            {
+                pk_lot_check_ratio[cnt] += 0.3
+                
+            }
         }
         
-        if(pk_lot_check_ratio[cnt] > 60){
+        if(pk_lot_check_ratio[cnt] > 50){
             ans = true
-        }else if(pk_lot_check_ratio[cnt] < 40){
+        }else if(pk_lot_check_ratio[cnt] < 49){
             ans = false
         }
         
@@ -140,6 +157,9 @@ extension CameraViewController1{
         return textLayer
     }
     
+    /***
+        
+    */
     func drawBoundingBox(_ bounds: CGRect) -> CALayer{
         
         let boxLayer = CALayer()

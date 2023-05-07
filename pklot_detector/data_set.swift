@@ -11,6 +11,7 @@ import UIKit
 var x_dot_list = Array<Double>()
 var y_dot_list = Array<Double>()
 var arr = Array<UIView>()
+
 var arr_rotation = Array<rotation>()
 
 struct rotation{
@@ -19,6 +20,9 @@ struct rotation{
     var c : Double
     var d : Double
 }
+
+
+var write_cnt = 0
 
 var detector_view_inner = false
 
