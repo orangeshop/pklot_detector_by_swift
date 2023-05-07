@@ -176,6 +176,8 @@ extension CameraViewController1{
         detectionLayer.frame = CGRect(x: 0, y: 0, width: screenRect.size.width, height: screenRect.size.height)
         previewLayer.addSublayer(detectionLayer)
         
+        
+        
     }
     
     func updateLayers(){
